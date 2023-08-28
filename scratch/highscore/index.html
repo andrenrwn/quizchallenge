@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>High Score Storage</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <header id="headerid">
+        <h1>Quiz Challenge</h1>
+        <nav id="navbar">
+        </nav>
+        <section id="about">
+            <h2>high scores</h2>
+            <p></p>
+            <section class="score" id="scorelist">
+                <section class="score">
+                    <table class="scoretable" id="scoretable">
+                        <tr>
+                            <th>Name</th>
+                            <th>High Score</th>
+                        </tr>
+                    </table>
+                </section>
+            </section>
+            <button onclick="refreshhiscores()">refresh high scores</button>
+            <button onclick="resetscores()">reset high scores</button>
+            <button onclick="randomscore()">random score</button>
+            </details>
+            <section class="hiscore">
+                <p>High Score: &nbsp;</p>
+                <p id="hiscore"></p>
+            </section>
+            <section class="yourscore">
+                <p>Your Score: &nbsp;</p>
+                <p id="yourscore"></p>
+            </section>
+        </section>
+    </header>
+
+    <main id="quiz">
+    </main>
+
+    <section class="inputinitial">  <!-- debugging-->
+        <p>Quiz Complete!</p>
+        <p id="scoremsg"></p><p id="congratsmsg"></p>
+        <section>
+            <label for="initials">Enter your intials:</label>
+            <input type="text" id="initials" name="initials" maxlength="32"/>
+        </section>
+        <ul>
+            <li><button onclick="finishquiz()">Finish</button></li>
+        </ul>
+    </section>
+
+    <footer id="footer">
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
