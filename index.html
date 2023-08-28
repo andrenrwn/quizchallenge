@@ -2,120 +2,123 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz Challenge</title>
-  <link rel="stylesheet" href="./css/style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quiz Challenge</title>
+    <link rel="stylesheet" href="./css/style.css" />
 </head>
 
 <body>
-  <header id="headerid">
-    <h1>Quiz Challenge</h1>
-    <nav id="navbar">
-    </nav>
-    <section id="about">
-        <details>
-          <summary>view high scores</summary>
-          <p></p>
-          <button onclick="refreshhiscores()">refresh high scores</button>
-          <button onclick="resetscores()">reset high scores</button>
-          <section class="score" id="scorelist">
-            <section class="score">
-                <table class="scoretable" id="scoretable">
-                    <tr>
-                        <th>Name</th>
-                        <th>High Score</th>
-                    </tr>
-                </table>
-                <section class="hiscore">
-                    <p>High Score: &nbsp;<p>
-                    <p id="hiscore"></p>
-                </section>
+    <header id="headerid">
+        <h1>Quiz Challenge</h1>
+        <nav id="navbar">
+        </nav>
+        <section id="about">
+            <details>
+                <summary>view high scores</summary>
+                <div class="content">
+                    <section class="score" id="scorelist">
+                        <section class="score">
+                            <section class="hiscore">
+                                <p>High Score: &nbsp;
+                                <p>
+                                <p id="hiscore"></p>
+                            </section>
+                            <table class="scoretable" id="scoretable">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>High Score</th>
+                                </tr>
+                            </table>
+                        </section>
+                    </section>
+                    <button onclick="refreshhiscores()">refresh high scores</button>
+                    <button onclick="resetscores()">reset high scores</button>
+                </div>
+            </details>
+            <section class="yourscore">
+                <p>Your Score: &nbsp;</p>
+                <p id="yourscore"></p>
             </section>
-          </section>
-        </details>
-        <section class="yourscore">
-            <p>Your Score: &nbsp;</p>
-            <p id="yourscore"></p>
-         </section>
-    </section>
-  </header>
-
-
-  <main id="quiz">
-    <section id="previouscard">
-    </section>
-    <section id="resultcard">
-    </section>
-    <section class="start card">
-        <p>Are you ready?</p>
-        <ul>
-            <li>Start the quiz</li>
-        </ul>
-    </section>
-    <section class="quiz card">
-        <p>Commonly used data types do <em>NOT</em> include:</p>
-        <ul>
-            <li>strings</li>
-            <li>booleans</li>
-            <li data-answer>alerts</li>
-            <li>numbers</li>
-        </ul>
-    </section>
-    <section class="quiz card">
-        <p>The condition in an if / else statement is enclosed with: _____.</p>
-        <ul>
-            <li>quotes ""</li>
-            <li>curly brackets {}</li>
-            <li data-answer>parentheses ()</li>
-            <li>square brackets []</li>
-        </ul>
-    </section>
-    <section class="quiz card">
-        <p>Arrays in Javascript can be used to store:</p>
-        <ul>
-            <li data-answer="0.25">numbers and strings</li>
-            <li data-answer="0.25">other arrays</li>
-            <li data-answer="0.25">booleans</li>
-            <li data-answer="1">all are correct</li>
-        </ul>
-    </section>
-    <section class="quiz card">
-        <p>String values must be enclosed within _____ when being assigned to variables:</p>
-        <ul>
-            <li>commas ,,</li>
-            <li>curly brackets {}</li>
-            <li data-answer>quotes ""</li>
-            <li>parenthesis ()</li>
-        </ul>
-    </section>
-    <section class="quiz card">
-        <p>This is used to print content while using the debugger:</p>
-        <ul>
-            <li>JavaScript</li>
-            <li>terminal/bash</li>
-            <li>for loops</li>
-            <li data-answer>console.log</li>
-        </ul>
-    </section>
-    <section class="finish card">
-        <p>Quiz Complete!</p>
-        <p id="scoremsg"></p><p id="congratsmsg"></p>
-        <section>
-            <label for="initials">Enter your intials:</label>
-            <input type="text" id="initials" name="initials" maxlength="32"/>
         </section>
-        <ul>
-            <li>Finish Quiz</li>
-        </ul>
-    </section>
-  </main>
+    </header>
 
-  <footer id="footer">
 
-  </footer>
+    <main id="quiz">
+        <section id="previouscard">
+        </section>
+        <section id="resultcard">
+        </section>
+        <section class="start card">
+            <p>Are you ready?</p>
+            <ul>
+                <li>Start the quiz</li>
+            </ul>
+        </section>
+        <section class="quiz card">
+            <p>Commonly used data types do <em>NOT</em> include:</p>
+            <ul>
+                <li>strings</li>
+                <li>booleans</li>
+                <li data-answer>alerts</li>
+                <li>numbers</li>
+            </ul>
+        </section>
+        <section class="quiz card">
+            <p>The condition in an if / else statement is enclosed with: _____.</p>
+            <ul>
+                <li>quotes ""</li>
+                <li>curly brackets {}</li>
+                <li data-answer>parentheses ()</li>
+                <li>square brackets []</li>
+            </ul>
+        </section>
+        <section class="quiz card">
+            <p>Arrays in Javascript can be used to store:</p>
+            <ul>
+                <li data-answer="0.25">numbers and strings</li>
+                <li data-answer="0.25">other arrays</li>
+                <li data-answer="0.25">booleans</li>
+                <li data-answer="1">all are correct</li>
+            </ul>
+        </section>
+        <section class="quiz card">
+            <p>String values must be enclosed within _____ when being assigned to variables:</p>
+            <ul>
+                <li>commas ,,</li>
+                <li>curly brackets {}</li>
+                <li data-answer>quotes ""</li>
+                <li>parenthesis ()</li>
+            </ul>
+        </section>
+        <section class="quiz card">
+            <p>This is used to print content while using the debugger:</p>
+            <ul>
+                <li>JavaScript</li>
+                <li>terminal/bash</li>
+                <li>for loops</li>
+                <li data-answer>console.log</li>
+            </ul>
+        </section>
+        <section class="finish card">
+            <p>Quiz Complete!</p>
+            <p id="scoremsg"></p>
+            <p id="congratsmsg"></p>
+            <section>
+                <label for="initials">Enter your intials:</label>
+                <input type="text" id="initials" name="initials" maxlength="32" />
+            </section>
+            <ul>
+                <li>Finish Quiz</li>
+            </ul>
+        </section>
+    </main>
 
-  <script src="./js/script.js"></script>
+    <footer id="footer">
+
+    </footer>
+
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
