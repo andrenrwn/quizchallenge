@@ -5,57 +5,66 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Quiz Challenge</title>
-    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-    <header id="headerid">
-        <h1>Quiz Challenge</h1>
-        <nav id="navbar">
-        </nav>
-        <section id="about">
-            <details>
-                <summary>view high scores</summary>
-                <div class="content">
-                    <section class="score" id="scorelist">
-                        <section class="score">
-                            <section class="hiscore">
-                                <p>High Score: &nbsp;
-                                <p>
-                                <p id="hiscore"></p>
+
+    <!-- Section to display quiz -->
+    <section class="quiz-section">
+
+        <!-- Header section, high scores -->
+        <header id="headerid">
+            <nav id="navbar">
+            </nav>
+            <section id="about">
+                <details>
+                    <summary>view high scores</summary>
+                    <div class="content">
+                        <section class="score" id="scorelist">
+                            <section class="score">
+                                <section class="hiscore">
+                                    <p>High Score: &nbsp;
+                                    <p>
+                                    <p id="hiscore"></p>
+                                </section>
+                                <table class="scoretable" id="scoretable">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>High Score</th>
+                                    </tr>
+                                </table>
                             </section>
-                            <table class="scoretable" id="scoretable">
-                                <tr>
-                                    <th>Name</th>
-                                    <th>High Score</th>
-                                </tr>
-                            </table>
                         </section>
-                    </section>
-                    <button onclick="refreshhiscores()">refresh high scores</button>
-                    <button onclick="resetscores()">reset high scores</button>
-                </div>
-            </details>
-            <section class="yourscore">
-                <p>Your Score: &nbsp;</p>
-                <p id="yourscore"></p>
+                        <button onclick="refreshhiscores()">refresh high scores</button>
+                        <button onclick="resetscores()">reset high scores</button>
+                    </div>
+                </details>
+                <section class="yourscore">
+                    <p>Your Score: &nbsp;</p>
+                    <p id="yourscore"></p>
+                </section>
             </section>
-        </section>
-    </header>
+        </header>
 
+        <!-- <nav>
+            <button id="js-add-card">Add Card</button>
+            <button id="js-add-tall-card">Add Tall Card</button>
+            <button id="js-remove-card">Remove Card</button>
+        </nav> -->
 
-    <main id="quiz">
-        <div id="previouscard">
-        </div>
-        <div id="resultcard">
-        </div>
-        <section class="start card">
-            <p>Are you ready?</p>
+        <div class="stacked-cards"></div>
+    </section>
+
+    <!-- Quiz data. Hide from being displayed with CSS -->
+    <main id="quizdata">
+        <section class="start">
+            <p>Quiz Topic: JavaScript<br>Are you ready?</p>
             <ul>
                 <li>Start the quiz</li>
             </ul>
         </section>
-        <section class="quiz card">
+        <section class="quiz">
             <p>Commonly used data types do <em>NOT</em> include:</p>
             <ul>
                 <li>strings</li>
@@ -64,7 +73,7 @@
                 <li>numbers</li>
             </ul>
         </section>
-        <section class="quiz card">
+        <section class="quiz">
             <p>The condition in an if / else statement is enclosed with: _____.</p>
             <ul>
                 <li>quotes ""</li>
@@ -73,7 +82,7 @@
                 <li>square brackets []</li>
             </ul>
         </section>
-        <section class="quiz card">
+        <section class="quiz">
             <p>Arrays in Javascript can be used to store:</p>
             <ul>
                 <li data-answer="0.25">numbers and strings</li>
@@ -82,7 +91,7 @@
                 <li data-answer="1">all are correct</li>
             </ul>
         </section>
-        <section class="quiz card">
+        <section class="quiz">
             <p>String values must be enclosed within _____ when being assigned to variables:</p>
             <ul>
                 <li>commas ,,</li>
@@ -91,7 +100,7 @@
                 <li>parenthesis ()</li>
             </ul>
         </section>
-        <section class="quiz card">
+        <section class="quiz">
             <p>This is used to print content while using the debugger:</p>
             <ul>
                 <li>JavaScript</li>
@@ -100,7 +109,7 @@
                 <li data-answer>console.log</li>
             </ul>
         </section>
-        <section class="finish card">
+        <section class="finish">
             <p>Quiz Complete!</p>
             <p id="scoremsg"></p>
             <p id="congratsmsg"></p>
@@ -114,11 +123,8 @@
         </section>
     </main>
 
-    <footer id="footer">
 
-    </footer>
-
-    <script src="./js/script.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>
