@@ -282,8 +282,12 @@ function gethighscores() {
 
 	// sort for ES10 from
 	// https://stackoverflow.com/questions/1069666/sorting-object-property-by-values
-	highscores = Object.fromEntries(
-		Object.entries(unsorted).sort(([, a], [, b]) => b - a));
+	if (unsorted !== null) {
+		if (unsorted.length > 0) {
+			highscores = Object.fromEntries(
+				Object.entries(unsorted).sort(([, a], [, b]) => b - a));
+		}
+	}
 }
 
 function storehighscores() {
