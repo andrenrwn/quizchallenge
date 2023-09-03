@@ -7,6 +7,7 @@ var order = Array.from(Array(quizdata.length).keys()); // track question order
 var currentcard = 0; // tracks question to ask
 
 var highscores = {};
+var topscore = 0; // all-time high score, including for blank intials
 var yourscore = 0;
 
 var timeleft; // maximum time
@@ -64,7 +65,7 @@ function layoutcards() {
 	var quizdisplay = document.getElementsByClassName("stacked-cards");
 	var allstackedcards = document.getElementsByClassName("card--added");
 
-	quizdisplay[0].style = "height: auto; transform: scale(0.5); transform-origin: 50% 0;";
+	quizdisplay[0].style = "height: auto; transform: scale(0.70); transform-origin: 50% 0; ";
 	quizdisplay[0].parentElement.style = "height:auto;";
 
 	for (var i of allstackedcards) {
@@ -188,8 +189,6 @@ function nextcard(event) {
 
 	// finish the quiz and collect initials
 	if (thiscardtype.contains('finish')) {
-		var initials = document.querySelector("#initials");
-
 		if (event.target.nodeName == "LI") {
 			finishquiz();
 			return; // goto out - do not refresh with stacked cards
@@ -253,8 +252,8 @@ document.getElementById("js-remove-card").addEventListener("click",
 function resetscores() {
 	highscores = {};
 	localStorage.setItem("highscores", "");
-	localStorage.setItem("hiscore", 0);
-	document.querySelector("#hiscore").textContent = "0.00";
+	localStorage.setItem("topscore", 0);
+	document.querySelector("#topscore").textContent = "0.00";
 	yourscore = 0;
 	document.querySelector("#yourscore").textContent = yourscore.toFixed(2);
 	refreshhiscores();
@@ -264,6 +263,9 @@ function resetscores() {
 function refreshhiscores() {
 	var scorerow = "<tr><th>Name</th><th>High Score</th></tr>";
 	gethighscores();
+
+	document.getElementById("topscore").textContent = topscore.toFixed(2);
+
 	for (var i in highscores) {
 		scorerow += "<tr>";
 		scorerow += "<td>" + i + "</td>";
@@ -274,31 +276,43 @@ function refreshhiscores() {
 
 // get highscore from localstorage
 function gethighscores() {
+	var tscore = 0;
 	var hstr = localStorage.getItem("highscores");
 	var unsorted = {};
-	if (hstr != "") {
+	if (hstr !== null) {
 		unsorted = JSON.parse(hstr);
 	};
 
 	// sort for ES10 from
 	// https://stackoverflow.com/questions/1069666/sorting-object-property-by-values
 	if (unsorted !== null) {
-		if (unsorted.length > 0) {
+		if (Object.keys(unsorted).length > 0) {
 			highscores = Object.fromEntries(
 				Object.entries(unsorted).sort(([, a], [, b]) => b - a));
+		} else {
+			highscores = unsorted;
 		}
 	}
+
+	// get the all-time top score
+	tscore = parseFloat(localStorage.getItem("topscore")) || 0; // if topscore is undefined in localstorage, convert NaN to 0
+	topscore = Math.max(tscore, topscore, parseFloat(highscores[Object.keys(highscores)[0]])); // ensure topscore is at least max of known highscores
 }
 
 function storehighscores() {
 	localStorage.setItem("highscores", JSON.stringify(highscores));
+	localStorage.setItem("topscore", topscore.toFixed(2).toString());
 }
+
+// ------------------------------
+// reload window and restart quiz
+function quizreload() {
+	location.reload();
+};
 
 // ----------------------------------
 // Finish the quiz, store high scores
 function finishquiz() {
-
-	layoutcards();
 
 	var initials = document.querySelector("#initials");
 	if (initials.value !== null && initials.value !== "") {
@@ -312,14 +326,26 @@ function finishquiz() {
 		storehighscores();
 	}
 
+	if (yourscore > topscore) {
+		topscore = yourscore;
+		storehighscores();
+	}
+
 	if (document.querySelector("#initials").value < yourscore) {
 		localStorage.setItem(document.querySelector("#initials").value, yourscore);
 	};
 	refreshhiscores();
 
-	if (confirm("Quiz finished. Ok to Restart. Cancel to Review.")) {
-		location.reload();
-	};
+	// Lay out all cards for review
+	layoutcards();
+
+	// scroll to top
+	window.scrollTo({ top: 0, behavior: 'smooth' });
+
+	// open high score summary
+	if (document.getElementById("viewhiscores").open === false) {
+		document.getElementById("viewhiscoressummary").click();
+	}
 }
 
 // ----------------------
@@ -460,7 +486,6 @@ populatehighscores();
 // Start quiz execution
 function init() {
 	// set up high scores from localstore
-	gethighscores();
 	refreshhiscores();
 
 	// get timer from HTML

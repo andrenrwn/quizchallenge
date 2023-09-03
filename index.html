@@ -18,15 +18,13 @@
             <nav id="navbar">
             </nav>
             <section id="about">
-                <details>
-                    <summary>view high scores</summary>
+                <details id="viewhiscores">
+                    <summary id="viewhiscoressummary">view high scores</summary>
                     <div class="content">
                         <section class="score" id="scorelist">
                             <section class="score" id="scorecontainer">
                                 <section class="hiscore">
-                                    <p>High Score: &nbsp;
-                                    <p>
-                                    <p id="hiscore"></p>
+                                    <p>High Score: &nbsp;<span id="topscore"></span></p>
                                 </section>
                                 <table class="scoretable" id="scoretable">
                                     <tr>
@@ -36,8 +34,9 @@
                                 </table>
                             </section>
                         </section>
-                        <button onclick="refreshhiscores()">refresh high scores</button>
-                        <button onclick="resetscores()">reset high scores</button>
+                        <button id="refreshhiscores" onclick="refreshhiscores()">refresh high scores</button>
+                        <button id="resetscores" onclick="resetscores()">reset high scores</button>
+                        <button id="quizreload" onclick="quizreload()">Take Quiz Again</button>
                     </div>
                 </details>
                 <section class="yourscore">
@@ -64,7 +63,7 @@
     <main id="quizdata">
         <section class="start">
             <h3>Welcome to the Quiz!<br>Topic: JavaScript</h3>
-            Time limit: <span id="timetotal">30</span> seconds.<br>
+            Time limit: <span id="timetotal">20</span> seconds.<br>
             Wrong answers deduct <span id="timededuct">5</span> seconds.<br>
             Are you ready?</p>
             <ul>
@@ -99,7 +98,7 @@
             </ul>
         </section>
         <section class="quiz">
-            <p>String values must be enclosed within _____ when being assigned to variables:</p>
+            <p>String values are enclosed within _____ when assigned to variables:</p>
             <ul>
                 <li>commas ,,</li>
                 <li>curly brackets {}</li>

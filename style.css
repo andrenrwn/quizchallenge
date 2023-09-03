@@ -1,5 +1,5 @@
+/* Palette: https://paletton.com/#uid=54h0u0kowpcbHF6iItiszj4D7b- */
 :root {
-  /* https://paletton.com/#uid=54h0u0kowpcbHF6iItiszj4D7b- */
   --clr-lightest: #E5DCFA;
   --clr-lighter: #9987C8;
   --clr-light: #644DA0;
@@ -7,6 +7,7 @@
   --clr-dark: #2C1568;
   --clr-darker: #15053F;
   --clr-darkest: #010005;
+  --clr2-dark: #4B0F65;
   --x-width: 500px;
   --y-height: 300px;
   --roundsize: 0.25em;
@@ -43,6 +44,12 @@ header {
 #about details {
   background-color: var(--clr-dark);
   color: white;
+}
+
+#viewhiscoressummary {
+  font-size: 0.8em;
+  font-weight: lighter;
+  padding: 0.25em;
 }
 
 .score {
@@ -287,6 +294,12 @@ button:active {
   background-color: var(--clr-light);
   box-shadow: inset 1px 1px 5px black;
   transform: translate(1px, 1px);
+}
+
+/* quiz reload button */
+#quizreload {
+  font-weight: bold;
+  background-color: var(--clr2-dark);
 }
 
 input {
