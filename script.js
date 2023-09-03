@@ -5,6 +5,7 @@ var stackedCards = document.querySelector(".stacked-cards"); // cards of display
 var quizdata = document.querySelector("#quizdata").children; // all quiz questions from HTML
 var order = Array.from(Array(quizdata.length).keys()); // track question order
 var currentcard = 0; // tracks question to ask
+var quizisdone = false; // if quiz is done
 
 var highscores = {};
 var topscore = 0; // all-time high score, including for blank intials
@@ -13,7 +14,7 @@ var yourscore = 0;
 var timeleft; // maximum time
 var timededuct = parseFloat(document.getElementById("timededuct").textContent);
 var timedispEl = document.getElementById("timerdisplay");
-var timerObj = null;
+var timerObj;
 
 // Fisher-Yates shuffle, adapted from https://javascript.info/task/shuffle
 // shuffle the order only for quiz cards
@@ -139,17 +140,26 @@ function countdown() {
 	timedispEl.innerHTML = timeleft.toFixed(2);
 	timeleft -= 0.10; // ten times a second
 
-	// have we reached the finish card?
-	if ((currentcard >= (order.length - 1)) || (timeleft <= 0)) {
-		if (timeleft <= 0) {
-			timeleft = 0;
-			timedispEl.innerHTML = timeleft.toFixed(2);
+	// if quiz is done, clear the timer
+	if (quizisdone === true) {
+		clearInterval(timerObj);
+		return;
+	}
+
+	if (timeleft <= 0) {  // if the timer expires while the quiz is still on, finish the quiz
+		quizisdone = true;
+		timeleft = 0;
+		timedispEl.innerHTML = timeleft.toFixed(2);
+
+		if (currentcard < order.length) { // remove race condition when the last finish card is already added
 			currentcard = order.length - 1;
 			quizcard();
-			stackcards(false);
 		}
+
+		stackcards(false);
 		clearInterval(timerObj);
 	}
+
 }
 
 // Main quiz user-interface handler
@@ -174,6 +184,9 @@ function nextcard(event) {
 	if (thiscardtype.contains('quiz')) {
 		result = evaluatequiz(event);
 		event.currentTarget.append(result);
+		if (timeleft <= 0) {  // remove race condition for setInterval ending the quiz and adding the finish card
+			return;
+		}
 	}
 
 	// if this is a start card, reset the score and start timer
@@ -198,6 +211,11 @@ function nextcard(event) {
 		currentcard++;
 
 		// console.log("card advancing to " + currentcard + "order index" + order[currentcard]);
+
+		// check if the next card is the end of the quiz questions
+		if (quizdata[order[currentcard]].classList.contains('finish')) {
+			quizisdone = true;
+		}
 
 		quizcard();
 	}
@@ -277,9 +295,11 @@ function refreshhiscores() {
 // get highscore from localstorage
 function gethighscores() {
 	var tscore = 0;
+	var hscore = 0;
 	var hstr = localStorage.getItem("highscores");
 	var unsorted = {};
-	if (hstr !== null) {
+
+	if (hstr !== '') {
 		unsorted = JSON.parse(hstr);
 	};
 
@@ -289,14 +309,19 @@ function gethighscores() {
 		if (Object.keys(unsorted).length > 0) {
 			highscores = Object.fromEntries(
 				Object.entries(unsorted).sort(([, a], [, b]) => b - a));
-		} else {
-			highscores = unsorted;
 		}
 	}
 
 	// get the all-time top score
-	tscore = parseFloat(localStorage.getItem("topscore")) || 0; // if topscore is undefined in localstorage, convert NaN to 0
-	topscore = Math.max(tscore, topscore, parseFloat(highscores[Object.keys(highscores)[0]])); // ensure topscore is at least max of known highscores
+	tscore = parseFloat(localStorage.getItem("topscore")); // if topscore is undefined in localstorage, convert NaN to 0
+	if (isNaN(tscore)) {
+		tscore = 0;
+	}
+	hscore = parseFloat(highscores[Object.keys(highscores)[0]]); // top in highscore list
+	if (isNaN(hscore)) {
+		hscore = 0;
+	}
+	topscore = Math.max(tscore, topscore, hscore); // ensure topscore is at least max of known highscores
 }
 
 function storehighscores() {
@@ -315,7 +340,11 @@ function quizreload() {
 function finishquiz() {
 
 	var initials = document.querySelector("#initials");
+
+	quizisdone = true;
+
 	if (initials.value !== null && initials.value !== "") {
+		initials.value = initials.value.trim();
 		if (!(initials.value in highscores)) {
 			highscores[initials.value] = yourscore;
 		} else {
