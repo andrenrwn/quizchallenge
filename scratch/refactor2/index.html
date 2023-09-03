@@ -22,7 +22,7 @@
                     <summary>view high scores</summary>
                     <div class="content">
                         <section class="score" id="scorelist">
-                            <section class="score">
+                            <section class="score" id="scorecontainer">
                                 <section class="hiscore">
                                     <p>High Score: &nbsp;
                                     <p>
@@ -41,8 +41,12 @@
                     </div>
                 </details>
                 <section class="yourscore">
-                    <p>Your Score: &nbsp;</p>
-                    <p id="yourscore"></p>
+                    <p>Your Score: &nbsp;
+                        <span id="yourscore">0.00</span>
+                    </p>
+                    <p>Timer: &nbsp;
+                        <span id="timerdisplay">0.00</span>
+                    </p>
                 </section>
             </section>
         </header>
@@ -59,7 +63,10 @@
     <!-- Quiz data. Hide from being displayed with CSS -->
     <main id="quizdata">
         <section class="start">
-            <p>Quiz Topic: JavaScript<br>Are you ready?</p>
+            <h3>Welcome to the Quiz!<br>Topic: JavaScript</h3>
+            Time limit: <span id="timetotal">30</span> seconds.<br>
+            Wrong answers deduct <span id="timededuct">5</span> seconds.<br>
+            Are you ready?</p>
             <ul>
                 <li>Start the quiz</li>
             </ul>
@@ -118,7 +125,7 @@
                 <input type="text" id="initials" name="initials" maxlength="32" />
             </section>
             <ul>
-                <li>Finish Quiz</li>
+                <li>Finish / Review Quiz</li>
             </ul>
         </section>
     </main>
