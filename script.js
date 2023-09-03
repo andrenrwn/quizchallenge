@@ -279,6 +279,11 @@ function resetscores() {
 
 // redraw highscore table
 function refreshhiscores() {
+	var initials = document.querySelector("#initials");
+	if (initials.value !== null && initials.value !== "") {
+		initials.value = initials.value.trim();
+	}
+
 	var scorerow = "<tr><th>Name</th><th>High Score</th></tr>";
 	gethighscores();
 
@@ -286,7 +291,11 @@ function refreshhiscores() {
 
 	for (var i in highscores) {
 		scorerow += "<tr>";
-		scorerow += "<td>" + i + "</td>";
+		if (i === initials.value) {
+			scorerow += "<td class=\"blink_me\">" + i + "</td>";
+		} else {
+			scorerow += "<td>" + i + "</td>";
+		}
 		scorerow += "<td>" + highscores[i] + "</td></tr>";
 	}
 	document.getElementById("scoretable").innerHTML = scorerow;
@@ -360,8 +369,8 @@ function finishquiz() {
 		storehighscores();
 	}
 
-	if (document.querySelector("#initials").value < yourscore) {
-		localStorage.setItem(document.querySelector("#initials").value, yourscore);
+	if (initials.value < yourscore) {
+		localStorage.setItem(initials.value, yourscore);
 	};
 	refreshhiscores();
 

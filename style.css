@@ -39,7 +39,7 @@ header {
   background-color: var(--clr-lighter);
 }
 
-/* Score Display Section */
+/* High Score Display Section */
 
 #about details {
   background-color: var(--clr-dark);
@@ -96,6 +96,9 @@ header {
   transform: skewX(-10deg);
   background-color: var(--clr-lightest);
 }
+
+
+/* Main Display Section */
 
 main {
   position: relative;
@@ -161,7 +164,16 @@ main {
   font-weight: bold;
 }
 
-/*
+/* Blinking text per http://jsfiddle.net/umz8t/6490/ */
+.blink_me {
+  animation: blinker 1s ease-in-out infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.3; }
+}
+
+/* This can be done this fixed way via scss, but now commented out because I refactored it in the JavaScript
 .card:nth-last-of-type(2) {
   transform: translate3d(0, -10px, -32px);
   opacity: 1;
