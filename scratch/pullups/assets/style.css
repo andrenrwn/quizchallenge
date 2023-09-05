@@ -1,0 +1,331 @@
+/* Palette: https://paletton.com/#uid=54h0u0kowpcbHF6iItiszj4D7b- */
+:root {
+  --clr-lightest: #E5DCFA;
+  --clr-lighter: #9987C8;
+  --clr-light: #644DA0;
+  --clr-base: #462C8A;
+  --clr-dark: #2C1568;
+  --clr-darker: #15053F;
+  --clr-darkest: #010005;
+  --clr2-dark: #4B0F65;
+  --x-width: 500px;
+  --y-height: 300px;
+  --roundsize: 0.25em;
+  --fontsans: Arial, Helvetica, sans-serif;
+  --fontserf: Georgia, 'Times New Roman', Times, serif;
+}
+
+* {
+  box-sizing: inherit;
+  border-radius: var(--roundsize);
+}
+
+html,
+body {
+  box-sizing: border-box;
+  background: #ddd;
+  font-size: 1.39rem;
+}
+
+header,
+h1,
+nav,
+#about {
+  font-family: var(--fontsans);
+}
+
+header {
+  width: 80%;
+  background-color: var(--clr-lighter);
+}
+
+/* High Score Display Section */
+
+#about details {
+  background-color: var(--clr-dark);
+  color: white;
+}
+
+#viewhiscoressummary {
+  font-size: 0.8em;
+  font-weight: lighter;
+  padding: 0.25em;
+}
+
+.score {
+  display: block;
+  justify-content: center;
+  padding: 5px;
+  color: black;
+  background-color: var(--clr-lighter);
+}
+
+.hiscore {
+  font-weight: bolder;
+  width: 100%;
+}
+
+.yourscore {
+  font-weight: bolder;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#scorecontainer {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.scoretable {
+  font-weight: normal;
+  text-align: center;
+  padding: 0.1rem;
+  color: black;
+  border-collapse: collapse;
+}
+
+.scoretable th {
+  font-weight: bold;
+}
+
+.scoretable tr:nth-of-type(even) {
+  transform: skewX(-10deg);
+  background-color: white;
+}
+
+.scoretable tr:nth-of-type(odd) {
+  transform: skewX(-10deg);
+  background-color: var(--clr-lightest);
+}
+
+
+/* Main Display Section */
+
+main {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  perspective: 600px;
+  translate: 0px 0px;
+  z-index: 0;
+  overflow: hidden;
+}
+
+
+/* Quiz section */
+
+.quiz-section {
+  padding: 10px;
+  overflow: hidden;
+  height: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stacked-cards {
+  margin-top: 120px;
+  width: 80%;
+  perspective: 1000px;
+  position: relative;
+  perspective-origin: 50% 50px;
+}
+
+.pulled-up {}
+
+.pulled-down {}
+
+.card {
+  background: #fff;
+  border-radius: var(--roundsize);
+  min-height: 500px;
+  max-height: 680px;
+  width: 100%;
+  /*height:500px;*/
+  padding: 1em 2em;
+  padding-bottom: 1em;
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.16);
+  transform-origin: 90% 0px;
+  transform: perspective(100px) translateY(75px) scale(0.9) rotateX(-10deg);
+  opacity: 0;
+  transition: all 0.4s ease, max-height 0.75s ease;
+}
+
+.card--added {
+  transform: translateY(0px) scale(1);
+  opacity: 1;
+}
+
+/* Style for answer result */
+.result {
+  opacity: 50%;
+  font-weight: bold;
+}
+
+/* Blinking text per http://jsfiddle.net/umz8t/6490/ */
+.blink_me {
+  animation: blinker 1s ease-in-out infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0.4;
+    color: var(--clr2-dark);
+  }
+}
+
+/* This can be done this fixed way via scss, but now commented out because I refactored it in the JavaScript
+.card:nth-last-of-type(2) {
+  transform: translate3d(0, -10px, -32px);
+  opacity: 1;
+}
+.card:nth-last-of-type(2):hover {
+  transform: translate3d(0, calc(-20% - 0px), -32px);
+}
+.card:nth-last-of-type(3) {
+  transform: translate3d(0, -20px, -64px);
+  opacity: 0.85;
+}
+.card:nth-last-of-type(3):hover {
+  transform: translate3d(0, calc(-20% - 10px), -64px);
+}
+.card:nth-last-of-type(4) {
+  transform: translate3d(0, -30px, -96px);
+  opacity: 0.7;
+}
+.card:nth-last-of-type(4):hover {
+  transform: translate3d(0, calc(-20% - 20px), -96px);
+}
+.card:nth-last-of-type(5) {
+  transform: translate3d(0, -40px, -128px);
+  opacity: 0.55;
+}
+.card:nth-last-of-type(5):hover {
+  transform: translate3d(0, calc(-20% - 30px), -128px);
+}
+.card:nth-last-of-type(6) {
+  transform: translate3d(0, -50px, -160px);
+  opacity: 0.4;
+}
+.card:nth-last-of-type(6):hover {
+  transform: translate3d(0, calc(-20% - 40px), -160px);
+}
+.card:nth-last-of-type(7) {
+  transform: translate3d(0, -60px, -192px);
+  opacity: 0.25;
+}
+.card:nth-last-of-type(7):hover {
+  transform: translate3d(0, calc(-100% - 50px), -192px);
+}
+.card:nth-last-of-type(8) {
+  transform: translate3d(0, -70px, -224px);
+  opacity: 0.1;
+}
+.card:nth-last-of-type(8):hover {
+  transform: translate3d(0, calc(-100% - 60px), -224px);
+}
+.card:nth-last-of-type(9) {
+  transform: translate3d(0, -80px, -256px);
+  opacity: -0.05;
+}
+.card:nth-last-of-type(9):hover {
+  transform: translate3d(0, calc(-100% - 70px), -256px);
+}
+.card:nth-last-of-type(10) {
+  transform: translate3d(0, -90px, -288px);
+  opacity: -0.2;
+}
+.card:nth-last-of-type(10):hover {
+  transform: translate3d(0, calc(-100% - 80px), -288px);
+}
+.card:nth-last-of-type(11) {
+  transform: translate3d(0, -100px, -320px);
+  opacity: -0.35;
+}
+.card:nth-last-of-type(11):hover {
+  transform: translate3d(0, calc(-100% - 90px), -320px);
+}
+.card:nth-last-of-type(n+10) {
+  display: none;
+}
+*/
+.card:nth-last-of-type(n+2) {
+  position: absolute;
+  max-height: 100px;
+  overflow: hidden;
+}
+
+.card:nth-last-of-type(n+2):hover {
+  opacity: 1;
+  transition-delay: 0.333s;
+}
+
+/* Links are choice buttons */
+ul {
+  font-family: var(--fontsans);
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  font-weight: normal;
+  font-size: 1.25rem;
+}
+
+li:before {
+  content: "";
+}
+
+li,
+button {
+  justify-content: left;
+  background-color: var(--clr-dark);
+  color: white;
+  margin: 0.25rem;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-radius: var(--roundsize);
+  width: auto;
+  -webkit-transition-duration: 0.4s;
+  /* Safari */
+  transition-duration: 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+li:hover,
+button:hover {
+  background-color: var(--clr-base);
+  overflow: hidden;
+}
+
+/* button/li visual feedback when clicked */
+li:active,
+button:active {
+  background-color: var(--clr-light);
+  box-shadow: inset 1px 1px 5px black;
+  transform: translate(1px, 1px);
+}
+
+/* quiz reload button */
+#quizreload {
+  font-weight: bold;
+  background-color: var(--clr2-dark);
+}
+
+input {
+  padding: 0.1rem;
+}
+
+/* Quiz data is included in the .html. Hide quiz data from being displayed */
+
+#quizdata {
+  display: none;
+}
